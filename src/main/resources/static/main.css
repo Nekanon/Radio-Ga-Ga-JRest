@@ -1,0 +1,6 @@
+#message-list {
+    position: relative; width: 300px;
+}
+#message-row {
+    position: absolute; right: 0;
+}
