@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.starlabs.RadioGaGa.domain.User;
 import com.starlabs.RadioGaGa.exceptions.NotFoundException;
+import com.starlabs.RadioGaGa.repo.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,14 @@ import java.util.Map;
 @RestController
 @RequestMapping ("message")
 public class MessageController {
+    private final MessageRepo messageRepo;
+
+    @Autowired
+    public MessageController(MessageRepo messageRepo) {
+        this.messageRepo = messageRepo;
+    }
+
     private int counter = 4;
-    private final AppRunner appRunner;
 
     private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
         add(new HashMap<String, String>() {{ put("id", "1"); put("text", "First message"); }});
@@ -27,55 +34,11 @@ public class MessageController {
         add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
     }};
 
-    @Autowired
-    public MessageController(AppRunner appRunner) {
-        this.appRunner = appRunner;
-    }
+
 
     @GetMapping
     public List<Map<String, String>> list() {
-        //appRunner.setBool(true);
-        User object = new User().name("name").blog("blog");
-        String json_1;
-        String json0;
-        String json;
-        String json1;
-        try{
-            ObjectMapper mapper_2 = new ObjectMapper();
-            String json_2 = "{ \"name\" : \"Black\", \"blog\" : \"BMW\" }";
-            User car = mapper_2.readValue(json_2, User.class);
-
-
-
-            json_1 = "{\\\"name\\\":\\\"name\\\", \\\"blog\\\":\\\"blog\\\"}";
-
-            ObjectWriter ow0 = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            json0 = ow0.writeValueAsString(object);
-
-            ObjectWriter ow = new ObjectMapper().writer();//.withDefaultPrettyPrinter();
-            json = ow.writeValueAsString(object);
-            int re = 5;
-
-            ObjectMapper mapper1 = new ObjectMapper();
-            json1 = mapper1.writeValueAsString(object);
-
-            ObjectMapper mapper2 = new ObjectMapper();
-            StringReader reader = new StringReader(json);
-            User headClass1 = (User) mapper2.readValue(reader, User.class);
-            re = 5;
-
-            ObjectMapper objectMapper_1 = new ObjectMapper();
-            User cars_1 = objectMapper_1.readValue(json, User.class);
-            re = 5 + 5;
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            User cars = objectMapper.readValue(json0, User.class);
-            re = 5;
-        } catch(Exception ex) {
-            int re = 5;
-        }
-
-        return messages;
+        return messageRepo.findAll();
     }
 
     @GetMapping("{id}")
