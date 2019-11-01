@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface MessageRepo extends JpaRepository<Message, Long> {
 
-    List<Map<String, String>> findAll();
+//    List<Map<String, String>> findAll();
 }

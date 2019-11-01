@@ -28,7 +28,7 @@ Vue.component('message-form', {
         template:
             '<div>' +
                 '<input type="text" placeholder="Write something" v-model="text" />' +
-                '<input type="button" value="Save" v-on:click="save" />' +
+                '<input type="button" value="Save" @click="save" />' +
             '</div>',
         methods: {
             save: function() {
@@ -58,11 +58,11 @@ Vue.component('message-form', {
 //create new component "row" for reading and editing
 Vue.component('message-row', {
     props: ['message', 'editMethod', 'messages'],
-    template: '<div>' + '' +
-        '<i>({{message.id}})</i> - {{message.text}}' +
-        '<span id="message-row">' +
-            '<input type="button" value="Edit" v-on:click="edit" />' +
-            '<input type="button" value="Delete" v-on:click="del" />' +
+    template: '<div>' +
+        '<i>({{message.id}})</i> {{message.text}}' +
+        '<span style="position: absolute; right: 0">' +//id="message-row"
+            '<input type="button" value="Edit" @click="edit" />' +
+            '<input type="button" value="Delete" @click="del" />' +
         '</span>' +
         '</div>',
     methods: {
@@ -90,10 +90,10 @@ Vue.component('messages-list', {
         }
     },
     template:
-        '<div id="message-list">' +
-            '<message-form v-bind:messages="messages" v-bind:messageAttr="message" /> ' +
+        '<div style="position: relative; width: 300px;">' + //id="message-list"
+            '<message-form :messages="messages" :messageAttr="message" /> ' +
             '<message-row v-for="message in messages" :key="message.id" :message="message" ' +
-            'v-bind:editMethod="editMethod" v-bind:messages="messages" />' +
+            ':editMethod="editMethod" :messages="messages" />' +
         '</div>',
     created: function() {
         messageApi.get().then(result =>
