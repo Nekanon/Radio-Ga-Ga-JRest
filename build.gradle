@@ -29,6 +29,9 @@ dependencies {
 	runtime 'org.springframework.boot:spring-boot-devtools'
 	compile 'org.springframework:spring-web'
 	compile 'com.fasterxml.jackson.core:jackson-databind'
+	
+	compile 'org.springframework.boot:spring-boot-starter-security'
+	compile group: 'org.springframework.security.oauth.boot', name: 'spring-security-oauth2-autoconfigure', version: '2.0.0.RELEASE'
 
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile 'org.postgresql:postgresql'
@@ -39,7 +42,7 @@ dependencies {
 	compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
 //	compile 'com.sun.xml.bind:jaxb-impl'
 	compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
-	compile group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
+	compile group: 'org.javassist', name: 'javassist', version: '3.26.0-GA'
 
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
